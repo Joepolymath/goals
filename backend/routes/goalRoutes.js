@@ -1,15 +1,16 @@
 const express = require('express');
 const {getGoals, createGoal, updateGoal, deleteGoal} = require('../controllers/goalController');
+const {protect} = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.get('/', getGoals);
+router.get('/', protect, getGoals);
 
-router.post('/', createGoal);
+router.post('/', protect, createGoal);
 
-router.put('/:id', updateGoal);
+router.put('/:id', protect, updateGoal);
 
-router.delete('/:id', deleteGoal);
+router.delete('/:id', protect, deleteGoal);
 
 // since the get and post have same endpoint, we can say:
 // router.route('/').get(getGoals).post(createGoal);
